@@ -20,7 +20,7 @@ import java.util.Scanner;
 
 public class Shop {
     private Amount cash;
-    private ArrayList<Product> inventory;
+    public ArrayList<Product> inventory;
     private ArrayList<Sale> sales;
     
 	final static double TAX_RATE = 1.04;
@@ -137,8 +137,10 @@ public class Shop {
 		    }
 		}
 	}
-	private void showCash() {
-		System.out.print("\nDinero actual: "+(Math.round(cash.getValue() * 100.00) / 100.00)+"€");//Redondeando a 2 decimales
+	public double showCash() {
+	    double valorCash = Math.round(cash.getValue() * 100.00) / 100.00;
+	    System.out.print("\nDinero actual: " + valorCash + "€"); 
+	    return valorCash;
 	}
 	private void countAmountSales() {
 		System.out.println("\nSuma de dinero durante las ventas:");
