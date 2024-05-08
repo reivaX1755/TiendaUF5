@@ -118,6 +118,12 @@ public class ProductView extends JDialog implements ActionListener{
 							if (!productoExistente) {
 								shop.inventory.add(new Product(name, wholesalerPrice, true, stock));
 							    JOptionPane.showMessageDialog(null, "Producto añadido con éxito!", "Añadir Producto", JOptionPane.INFORMATION_MESSAGE);
+							    for (Product product : shop.inventory) {
+									if (product != null) {
+										System.out.println("Nombre: "+product.getName()+" // Id: "+product.getId()+" // Precio Proveedor Unidad: "+product.getWholesalerPrice()
+										+" // Precio Venta Cliente Unidad: "+product.getPublicPrice()+" // Stock: "+product.getStock()+" // isAvailable: "+product.isAvailable());
+									}
+								}
 							    ProductView.this.setVisible(false);
 							}
 							break;
