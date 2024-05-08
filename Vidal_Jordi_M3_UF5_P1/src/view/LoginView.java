@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.EventQueue;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,13 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import exception.LimitLoginException;
 import model.Employee;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
 
 public class LoginView extends JFrame implements ActionListener{
 
@@ -23,6 +24,8 @@ public class LoginView extends JFrame implements ActionListener{
 	private JTextField password;
 	private JTextField numEmpleado;
 	private JLabel lblNewLabel_1;
+	private int loginErrorCount = 0;
+	private static final int MAX_LOGIN_ERRORS = 3;
 
 	/**
 	 * Launch the application.
@@ -84,17 +87,24 @@ public class LoginView extends JFrame implements ActionListener{
 			    try {
 			        employeeID = Integer.parseInt(employeeIDText);
 			        Employee employee = new Employee("Paco", employeeID);
-			        if (employee.login(employeeID, pass) == true) {
+			        if (employee.login(employeeID, pass)) {
 			            LoginView.this.setVisible(false);
 			            ShopView shopView = new ShopView();
 			            shopView.setVisible(true);
 			        } else {
-			            JOptionPane.showMessageDialog(LoginView.this, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+			            loginErrorCount++;
+			            if (loginErrorCount >= MAX_LOGIN_ERRORS) {
+			                throw new LimitLoginException("Se han superado los intentos de inicio de sesión.");
+			            } else {
+			                JOptionPane.showMessageDialog(LoginView.this, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+			            }
 			        }
 			    } catch (NumberFormatException ex) {
 			        JOptionPane.showMessageDialog(LoginView.this, "Por favor, ingrese un ID de empleado válido", "Error", JOptionPane.ERROR_MESSAGE);
-			    }
-			    
+			    } catch (LimitLoginException ex) {
+			        JOptionPane.showMessageDialog(LoginView.this, "Se han superado los intentos login cerrando sesión... ", "Error", JOptionPane.ERROR_MESSAGE);
+			        System.exit(0);
+			    }   
 			}
 		});
 		contentPane.add(btnNewButton);
@@ -105,5 +115,5 @@ public class LoginView extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
-
 }
+
