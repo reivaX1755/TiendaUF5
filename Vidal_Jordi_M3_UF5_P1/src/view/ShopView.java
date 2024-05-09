@@ -54,7 +54,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		JLabel lblNewLabel = new JLabel("Mi Tienda.com");
-		lblNewLabel.setBounds(184, 10, 67, 13);
+		lblNewLabel.setBounds(163, 10, 121, 13);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Pulse o seleccione una opción:");

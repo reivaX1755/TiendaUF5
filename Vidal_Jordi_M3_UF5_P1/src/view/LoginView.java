@@ -97,7 +97,8 @@ public class LoginView extends JFrame implements ActionListener{
 			                throw new LimitLoginException("Se han superado los intentos de inicio de sesión.");
 			            } else {
 			                JOptionPane.showMessageDialog(LoginView.this, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-			            }
+			                password.setText("");
+			                numEmpleado.setText("");}
 			        }
 			    } catch (NumberFormatException ex) {
 			        JOptionPane.showMessageDialog(LoginView.this, "Por favor, ingrese un ID de empleado válido", "Error", JOptionPane.ERROR_MESSAGE);
